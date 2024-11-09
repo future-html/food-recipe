@@ -1,5 +1,3 @@
-import React from "react";
-
 const PopularFind = () => {
 	return (
 		<section className="">
