@@ -1,50 +1,27 @@
-# React + TypeScript + Vite
+# Food Recipe Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
+This project is a food recipe application built using React, TypeScript, and Vite. It provides users with a platform to browse, search, and manage various recipes, enhancing their cooking experience.
 
-Currently, two official plugins are available:
+## Technology Stack
+- **React**: A JavaScript library for building user interfaces.
+- **TypeScript**: A typed superset of JavaScript that compiles to plain JavaScript, providing type safety and better tooling.
+- **Vite**: A fast build tool that provides a modern development experience with Hot Module Replacement (HMR).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+- **Recipe Browsing**: Users can view a list of recipes with details.
+- **Recipe Search**: Users can search for recipes using keywords or ingredients.
+- **Real-time Search**: Displays results instantly as users type in the search bar.
+- **Recipe Filtering**: Filter recipes by categories such as savory dishes, desserts, or vegetarian options.
+- **Add New Recipes**: Users can fill out a form to add their own recipes.
+- **Persistence**: Recipes are stored in Local Storage or Firebase for persistence.
+- **Search Functionality**: Users can search for recipes based on ingredients or recipe names.
+- **Responsive Design**: The application is designed to work on various screen sizes.
 
-## Expanding the ESLint configuration
+## Installation
+To get started with the project, follow these steps:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd food-recipe
