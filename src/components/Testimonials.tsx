@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import * as gsap from 'gsap';
 
 const testimonials = [
   {
@@ -59,6 +60,18 @@ const TestimonialCard: React.FC<{ testimonial: typeof testimonials[0] }> = ({ te
 
 const Testimonials: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const testimonialRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (testimonialRef.current && gsap.default && typeof gsap.default.from === 'function') {
+      gsap.default.from(testimonialRef.current, {
+        opacity: 0,
+        y: 50,
+        duration: 0.8,
+        ease: 'power3.out'
+      });
+    }
+  }, [currentIndex]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -95,7 +108,9 @@ const Testimonials: React.FC = () => {
                 key={testimonial.id}
                 className="w-full flex-shrink-0"
               >
-                <TestimonialCard testimonial={testimonial} />
+                <div ref={testimonialRef}>
+                  <TestimonialCard testimonial={testimonial} />
+                </div>
               </div>
             ))}
           </div>
