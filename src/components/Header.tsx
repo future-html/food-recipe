@@ -1,12 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useRef} from 'react';
 import { FiMenu, FiX, FiSearch } from 'react-icons/fi';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const isAnimating = useRef(false); // Ref to track animation state
+
+  const toggleMenu = () => {
+    if (!isAnimating.current) {
+      isAnimating.current = true; // Set animating state
+      setIsMenuOpen((prev) => !prev); // Toggle menu state
+
+      // Delay state change to allow animation to complete
+      setTimeout(() => {
+        isAnimating.current = false; // Reset animating state
+      }, 300); // Match this duration with your animation duration
+    }
+  };
+
+
+
   return (
     <header className="bg-white shadow-md fixed w-full top-0 z-50">
-      <div className="container mx-auto px-4">
+      <div className="lg:container  mx-auto md:px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
@@ -14,7 +30,7 @@ const Header: React.FC = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
+          <nav className="hidden lg:flex space-x-8">
             <a href="/" className="text-gray-700 hover:text-orange-600">Home</a>
             <a href="/recipes" className="text-gray-700 hover:text-orange-600">Recipes</a>
             <a href="/blog" className="text-gray-700 hover:text-orange-600">Blog</a>
@@ -23,7 +39,7 @@ const Header: React.FC = () => {
           </nav>
 
           {/* Search Bar */}
-          <div className="hidden md:flex items-center">
+          <div className="hidden lg:flex items-center">
             <div className="relative">
               <input
                 type="text"
@@ -37,20 +53,26 @@ const Header: React.FC = () => {
             </button>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-gray-700 hover:text-orange-600"
-            >
-              {isMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
-            </button>
-          </div>
+
+
+{/* Mbile btn */}
+          <div className="lg:hidden">
+  <div
+    onClick={toggleMenu}
+    aria-label='Toggle Menu'
+    className="text-gray-700 hover:text-orange-600"
+  >
+    {isMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+  </div>
+</div>
+
+
         </div>
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden">
+          <div          className={`overflow-hidden transition-all duration-300 ease-in-out ${isMenuOpen ? 'animate-fadeInDown' : 'animate-fadeOutUp'}`}
+          id = 'panel'>
             <div className="px-2 pt-2 pb-3 space-y-1">
               <a href="/" className="block px-3 py-2 text-gray-700 hover:text-orange-600">Home</a>
               <a href="/recipes" className="block px-3 py-2 text-gray-700 hover:text-orange-600">Recipes</a>
@@ -69,8 +91,10 @@ const Header: React.FC = () => {
                 Submit Recipe
               </button>
             </div>
+            
           </div>
         )}
+       
       </div>
     </header>
   );

@@ -7,9 +7,9 @@ const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand Section */}
-          <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-orange-600">TastyBites</h2>
-            <p className="text-gray-400">
+          <div className="space-y-6 ">
+            <h2 className="text-2xl font-bold text-orange-600 max-lg:!text-start">TastyBites</h2>
+            <p className="text-gray-400 max-lg:!text-start">
               Discover delicious recipes and elevate your cooking journey with our community of food lovers.
             </p>
             <div className="flex space-x-4">

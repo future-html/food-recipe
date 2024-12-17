@@ -62,16 +62,16 @@ const Testimonials: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const testimonialRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (testimonialRef.current && gsap.default && typeof gsap.default.from === 'function') {
-      gsap.default.from(testimonialRef.current, {
-        opacity: 0,
-        y: 50,
-        duration: 0.8,
-        ease: 'power3.out'
-      });
-    }
-  }, [currentIndex]);
+  // useEffect(() => {
+  //   if (testimonialRef.current && gsap.default && typeof gsap.default.from === 'function') {
+  //     gsap.default.from(testimonialRef.current, {
+  //       opacity: 0,
+  //       y: 50,
+  //       duration: 0.8,
+  //       ease: 'power3.out'
+  //     });
+  //   }
+  // }, [currentIndex]);
 
   useEffect(() => {
     const timer = setInterval(() => {

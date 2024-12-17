@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Recipe, mockRecipes } from '../types/Recipe';
 
+
 const RecipeCard: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
+  
+
   return (
     <div className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
       <div className="relative h-48">
@@ -46,7 +49,16 @@ const RecipeCard: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
   );
 };
 
-const FeaturedRecipes: React.FC = () => {
+const FeaturedRecipes: React.FC<{query:string}> = ({query}) => {
+  const [filteredMockRecipes, setFilteredMockRecipes] = useState<Recipe[]>(mockRecipes); 
+  useEffect(() => {
+    setFilteredMockRecipes((prev) => {
+      return mockRecipes.filter((recipe) => {
+        return recipe.title.toLowerCase().includes(query.toLowerCase());
+      });
+    })
+  }, [query]); 
+
   return (
     <section className="py-16 px-4 bg-gray-50">
       <div className="max-w-7xl mx-auto">
@@ -61,7 +73,7 @@ const FeaturedRecipes: React.FC = () => {
 
         {/* Recipe Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {mockRecipes.map((recipe) => (
+          {filteredMockRecipes.map((recipe) => (
             <RecipeCard key={recipe.id} recipe={recipe} />
           ))}
         </div>

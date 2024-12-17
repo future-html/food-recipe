@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Children } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import FeaturedRecipes from './components/FeaturedRecipes';
@@ -6,8 +6,23 @@ import Categories from './components/Categories';
 import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
 import { FiMoon, FiSun } from 'react-icons/fi';
+import { Route, Routes } from 'react-router-dom';
+import CTA from './components/CTA';
+import RecipePage from './pages/RecipePage';
+
+
+ 
 
 const App: React.FC = () => {
+  
+
+  const [query, setQuery] = useState<string>(''); 
+  
+
+
+  // src/App.tsx
+
+const BodyWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [darkMode, setDarkMode] = useState(() => {
     const savedMode = localStorage.getItem('darkMode');
     return savedMode ? JSON.parse(savedMode) : false;
@@ -15,36 +30,55 @@ const App: React.FC = () => {
 
   useEffect(() => {
     if (darkMode) {
-      document.documentElement.classList.add('dark');
+      document.body.classList.add('bg-black');
     } else {
-      document.documentElement.classList.remove('dark');
+      document.body.classList.remove('bg-black');
     }
     localStorage.setItem('darkMode', JSON.stringify(darkMode));
   }, [darkMode]);
 
   return (
-    <div className={`min-h-screen ${darkMode ? 'dark' : ''}`}>
+    <div className={`min-h-screen relative ${darkMode ? 'dark' : ''}`}>
       {/* Dark Mode Toggle */}
       <button
         onClick={() => setDarkMode(!darkMode)}
-        className="fixed bottom-4 right-4 p-3 bg-gray-800 dark:bg-white text-white dark:text-gray-800 rounded-full shadow-lg z-50 hover:scale-110 transition-transform"
+        className="fixed top-4 right-4 p-2 bg-gray-800 text-white rounded-full shadow-lg z-50 hover:scale-110 transition-transform"
         aria-label="Toggle dark mode"
       >
         {darkMode ? <FiSun size={24} /> : <FiMoon size={24} />}
       </button>
-
-      {/* Main Content */}
-      <div className="bg-white dark:bg-gray-900 transition-colors">
-        <Header />
-        <main>
-          <Hero />
-          <FeaturedRecipes />
-          <Categories />
-          <Testimonials />
-        </main>
-        <Footer />
-      </div>
+      {children}
     </div>
+  );
+};
+
+  
+
+  return (
+    
+
+     
+      <Routes>
+            <Route path="/" element = {<React.Fragment>
+              <div className='relative'>
+              <BodyWrapper>
+   <Header/>
+    <Hero query={query} setQuery={setQuery} />
+              <FeaturedRecipes query={query} />
+              <Categories />
+              <CTA />
+              <Testimonials />
+<Footer/>
+   </BodyWrapper>
+              </div>
+   
+    </React.Fragment>}>
+              
+            </Route>
+            <Route path="/add-recipe" element={
+              <RecipePage/>} /> {/* Route to the Recipe Page */}
+        </Routes>
+   
   );
 };
 

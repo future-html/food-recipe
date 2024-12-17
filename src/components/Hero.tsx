@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
 
-const Hero: React.FC = () => {
+
+interface HeroProps {
+  query: string;
+  setQuery: (query: string) => void;
+}
+
+
+const Hero: React.FC<HeroProps>  = ( {query, setQuery}) => {
+  const [inputValue, setInputValue] = useState(query); // Local state for input
+
   return (
     <div className="relative h-[600px] mt-16">
       {/* Background Image */}
@@ -24,17 +33,30 @@ const Hero: React.FC = () => {
         </p>
 
         {/* Search Box */}
-        <div className="w-full max-w-2xl relative">
+        <form action= '/' className="w-full max-w-2xl relative" onSubmit={(e) => {
+          e.preventDefault();
+          console.log(query);
+          setQuery(inputValue);
+          
+          }}>
           <input
-            type="text"
+            type="search"
+            id="gsearch" name="gsearch"
+             value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)} // Update local input state
             placeholder="Search by ingredients or recipe name..."
+
             className="w-full px-6 py-4 rounded-full text-gray-800 text-lg focus:outline-none focus:ring-2 focus:ring-orange-600"
           />
-          <button className="absolute right-2 top-2 bg-orange-600 text-white px-6 py-2 rounded-full hover:bg-orange-700 transition-colors flex items-center">
+          <label htmlFor="xx">
+            <input type='submit' name = 'xx' id = 'xx' className='hidden'/>
+            <div className="absolute right-2 top-2 bg-orange-600 text-white px-6 py-2 rounded-full hover:bg-orange-700 transition-colors flex items-center">
             <FiSearch className="mr-2" />
             Search
-          </button>
-        </div>
+            </div>
+          </label>
+          
+        </form>
 
         {/* Explore Button */}
         <button className="mt-8 px-8 py-3 bg-orange-600 text-white rounded-full hover:bg-orange-700 transition-colors text-lg font-semibold">
