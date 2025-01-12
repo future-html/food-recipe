@@ -1,9 +1,21 @@
 import React, { useEffect, useState } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import { Recipe, mockRecipes } from "../types/Recipe";
 
 const RecipeCard: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
+	useEffect(() => {
+		AOS.init({
+			duration: 1200, // Animation duration in milliseconds
+			once: true, // Animation happens only once
+		});
+	}, []);
+
 	return (
-		<div className=" rounded-lg border overflow-hidden shadow-lg dark:shadow-lg dark:shadow-white hover:shadow-xl transition-shadow duration-300">
+		<div
+			data-aos="fade-up"
+			className=" rounded-lg border overflow-hidden shadow-lg dark:shadow-lg dark:shadow-white hover:shadow-xl transition-shadow duration-300"
+		>
 			<div className="relative h-48">
 				<img
 					src={recipe.image}

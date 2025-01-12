@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import * as gsap from "gsap";
-
+import AOS from "aos";
+import "aos/dist/aos.css";
 const testimonials = [
 	{
 		id: 1,
@@ -114,6 +114,12 @@ const Testimonials: React.FC = () => {
 		return () => window.removeEventListener("resize", updateVisibleItems);
 	}, []);
 
+	useEffect(() => {
+		AOS.init({
+			duration: 1200, // Animation duration in milliseconds
+			once: true, // Animation happens only once
+		});
+	}, []);
 	// Auto-rotate testimonials
 	useEffect(() => {
 		const timer = setInterval(() => {
@@ -144,10 +150,12 @@ const Testimonials: React.FC = () => {
 							transform: `translateX(-${currentIndex * (100 / visibleItems)}%)`,
 						}}
 					>
-						{testimonials.map((testimonial) => (
+						{testimonials.map((testimonial, index) => (
 							<div
 								key={testimonial.id}
 								className="flex flex-shrink-0 w-full md:w-1/2 lg:w-1/3"
+								data-aos="fade-up"
+								data-aos-delay={500 * index}
 							>
 								<TestimonialCard testimonial={testimonial} />
 							</div>
